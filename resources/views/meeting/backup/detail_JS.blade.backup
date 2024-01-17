@@ -1,0 +1,246 @@
+{{-- 2 --}}
+
+<script>
+    $('#selectParticipanEdit').select2({
+        theme: "bootstrap-5",
+        dropdownParent: $('#formReschedule'),
+        closeOnSelect: false,
+        tags: true,
+    });
+    // open modal Detail
+    const btnDetail = $('#btnDetail');
+    const modalFormDetail = $('#modalDetail');
+
+    $(document).on('click', '.btnDetail', function(e) {
+
+        document.getElementById('multitabs1').checked = true;
+
+        $('#btnSimpanReschedule').show();
+        e.preventDefault();
+        var meetingId = $(this).data('id');
+        //  console.log(meetingId);
+        $('#listOfParticipants').empty();
+
+        const modalDetail = $('#modalDetail');
+        modalDetail.modal('show')
+
+
+        $.ajax({
+                url: "{{ route('/meeting/getDetail') }}",
+                method: "GET",
+                data: {
+                    meetingId: meetingId
+                },
+                beforeSend: () => {
+
+                }
+            })
+            .done(res => {
+                // console.log(res);
+                const infoBooking = res.DetailMeeting
+
+                var roomName = infoBooking.room_name;
+
+                $("#titleDetail").text(infoBooking.title_meeting);
+                $("#descDetail").text(infoBooking.description);
+                $("#roomDetail").text(infoBooking.room_name);
+                $("#floorDetail").text(infoBooking.floor);
+                $("#dateDetail").text(infoBooking.meeting_date);
+                $("#participantDetail").text(infoBooking.participant_count + ' People');
+                $("#startMeetingDetail").text(infoBooking.meeting_start);
+                $("#finishMeetingDetail").text(infoBooking.meeting_end);
+                $("#bookingByDetail").text(infoBooking.fullname);
+                $("#bookingByBadgeDetail").text(infoBooking.booking_by);
+                $("#statusDetail").text(infoBooking.status_name_eng);
+                $("#reasonDetail").text(infoBooking.title_meeting);
+
+
+                //get data modal edit untuk buton edit meeting di modal detail
+
+                $("#titleDetailEdit").val(infoBooking.title_meeting);
+                $("#DateDetailEdit").val(infoBooking.meeting_date);
+                $("#startMeetingDetailEdit").val(infoBooking.meeting_start);
+                $("#finishMeetingDetailEdit").val(infoBooking.meeting_end);
+                $("#descDetailEdit").val(infoBooking.description);
+                $("#selectedParticipantCount").text(infoBooking.participant_count + ' Participant Selected')
+
+                $("#RoomDetailEdit").val(infoBooking.roommeeting_id).trigger('change.select2');
+
+
+
+
+                // console.log(infoBooking.meetingId)
+                $("#meetingId").val(infoBooking.meetingId);
+                $("#meetingIdEdit").val(infoBooking.meetingId);
+
+
+
+
+
+                //         const participant = res.ParticipantTabs
+
+                //         const listOfParticipants = $('#listOfParticipants');
+
+                //         $.each(participant, function(index, participant) {
+                //             const participantHtml = `
+                //             <div class="participant" style="display: flex; align-items: center; margin-bottom: 20px; margin-right: 20px;">
+                //                 <img src="${participant.img_user}" alt="${participant.fullname}"
+                //                     class="participant-img" style="width: 60px; height: 60px; border-radius: 50%; margin-right: 10px;">
+                //                 <div class="participant-info"
+                //                     style=" display: flex; flex-direction: column; font-size: 15px;">
+                //                     <span class="participant-name fw-bold mt-1">${participant.fullname}</span>
+                //                     <span class="participant-role mt-1">${participant.position_name}</span>
+                //                     <span class="participant-badge mt-1">${participant.participant}</span>
+                //                 </div>
+                //             </div>
+                // `;
+
+                //             // Menambahkan participantHtml ke listOfParticipants
+                //             listOfParticipants.append(participantHtml);
+                //         });
+
+            })
+
+        $.ajax({
+                url: "{{ route('/meeting/getParticipant') }}",
+                method: "GET",
+                data: {
+                    meetingId: meetingId
+                },
+                beforeSend: () => {
+
+                }
+            })
+            .done(res => {
+                console.log()
+
+                const participant = res.ParticipantTabs
+                const LParticipant = res.editParticipant
+
+                console.log(LParticipant);
+                $("#selectParticipanEdit").val(LParticipant).trigger('change.select2');
+
+
+
+                const listOfParticipants = $('#listOfParticipants');
+
+                $.each(participant, function(index, participant) {
+                    const participantHtml = `
+                    <div class="col-4">
+                                    <div class="participant" style="display: flex; align-items: center; margin-bottom: 20px; margin-right: 20px;">
+                                        <img src="${participant.img_user}" alt="${participant.fullname}"
+                                            class="participant-img" style="width: 70px; height: 70px; border-radius: 50%; margin-right: 10px;">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="participant-info" style=" display: flex; flex-direction: column;">
+                                                    <span class="participant-name fw-bold" style="margin: 0; font-size: 15px;">${participant.fullname}</span>
+                                                    <span class="participant-role" style="margin-top: -5px; font-size: 13px;">${participant.position_name}</span>
+                                                    <span class="participant-badge" style="margin-top: -5px; font-size: 13px;">${participant.participant}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    `;
+
+                    // Menambahkan participantHtml ke listOfParticipants
+                    listOfParticipants.append(participantHtml);
+                });
+            })
+
+
+    });
+</script>
+
+
+{{-- tombol cancel dan modal cancel --}}
+<script>
+    // open reschedule modal detail
+    const btnCancel = $('#btnCancel');
+    const modalCancel = $('#modalCancel');
+
+    btnCancel.click(e => {
+        e.preventDefault();
+        modalCancel.modal('show');
+
+    });
+
+    //summernote init
+    $(document).ready(function() {
+        $('#txDeskripsiCancel').summernote({
+            placeholder: 'Insert Reason (Optional)',
+            tabsize: 2,
+            height: 120,
+            toolbar: [], // Menghilangkan toolbar
+            styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], // Mematikan gaya teks
+            dialogsInBody: true, // Menjamin dialog modal muncul di atas modal Bootstrap lainnya
+
+        });
+    });
+
+
+
+
+    // modal cancel
+    $('#formCancelMeeting').on('submit', function(e) {
+        // console.log('tesa');
+
+        e.preventDefault();
+        // validasi process edit di tab process
+
+        Swal.fire({
+            title: "Do you want to cancel this Meeting?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#6e7881',
+            confirmButtonColor: '#dd3333',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes',
+            reverseButtons: true,
+            customClass: {
+                confirmButton: "swal-confirm-right",
+                cancelButton: "swal-cancel-left"
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                        url: "{{ route('/meeting/cancelMeeting') }}",
+                        method: 'POST',
+                        data: new FormData(this),
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: () => {
+                            $('#SpinnerBtnEdit').removeClass('d-none')
+                            $('#btnCancelModal').hide();
+                        }
+                    })
+                    .done(res => {
+
+                        if (res.MSGTYPE == 'W') {
+                            $('#SpinnerBtnEdit').addClass('d-none')
+                            $('#tabBtnEditProcess').show()
+                            showMessage('warning', res.MSG)
+                            return;
+                        }
+
+                        $('#SpinnerBtnEdit').addClass('d-none')
+
+                        showMessage('success', "Meeting successfully Canceled!")
+                        $('#modalCancel').modal('hide');
+                        $(this)[0].reset();
+
+
+                        getListMeetingRoom();
+                    })
+                    .fail(err => {
+                        showMessage('error', 'Sorry! we failed to update data')
+                        $('#SpinnerBtnEdit').addClass('d-none')
+                        $('#tabBtnEditProcess').show();
+                        $('#btnCancelModal').show();
+                    })
+            }
+        })
+    });
+</script>
