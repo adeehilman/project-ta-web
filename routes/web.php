@@ -247,12 +247,12 @@ Route::group(['middleware' => ['LoginCheck']], function () {
     Route::post('/Room/update', [RoomController::class, 'update'])->name('/Room/update');
     Route::get('/Room/detail', [RoomController::class, 'detail'])->name('/Room/detail');
 
+    Route::get('/user/listEmployee', [UserController::class, 'listEmployee'])->name('/user/listEmployee');
     // section list user
     // Route::get('/user', [UserController::class, 'index'])->name('user');
     // Route::get('/user/getlistuser', [UserController::class, 'getListUser'])->name('/user/getlistuser');
     // Route::get('/user/getfilteruser', [UserController::class, 'getFilterUser'])->name('/user/getfilteruser');
     // Route::post('/user/insert', [UserController::class, 'insert'])->name('/user/insert');
-    // Route::get('/user/listEmployee', [UserController::class, 'listEmployee'])->name('/user/listEmployee');
     // Route::get('/user/edit', [UserController::class, 'edit'])->name('/user/edit');
     // Route::post('/user/update', [UserController::class, 'update'])->name('/user/update');
 
@@ -281,4 +281,3 @@ Route::get('/meetingsummary/export', [MeetingSummaryController::class, 'export']
 Route::get('/roomsummary/export', [RoomSummaryController::class, 'export'])->name('/roomsummary/export');
 Route::get('/meetingsummary/exportDetail', [DetailMeetingSummaryContoller::class, 'exportDetail'])->name('/meetingsummary/exportDetail');
 Route::get('/roomsummary/exportDetail', [DetailRoomSummaryController::class, 'exportDetail'])->name('/roomsummary/exportDetail');
-Route::post('/datareport/export', [UpdateEmployeeDataReportController::class, 'exportreport'])->name('exportreport');   

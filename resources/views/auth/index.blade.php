@@ -29,11 +29,11 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            {{-- <div class="form-group form-check mt-1 mb-3">    
+                            {{-- <div class="form-group form-check mt-1 mb-3">
                             <label for="check_simpanakun"><span class="mt-1" style="font-size: 12px;">
                                 <input id="check_simpanakun" type="checkbox" class="form-check-input mt-2">Save Account</span>
                             </label>
-                            
+
                         </div> --}}
 
 
@@ -78,7 +78,7 @@
                     }
 
                     if (res.status === 200) {
-                        if (parseInt(res.role) === 84 || parseInt(res.role) === 85) {
+                        if (parseInt(res.role) === 1 || parseInt(res.role) === 3) {
                             window.location = '{{ route('meeting') }}'
                         } else {
 

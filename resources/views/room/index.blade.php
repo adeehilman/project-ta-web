@@ -76,17 +76,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 mt-3">
-                                        <label for="addDeptRoom" class="form-label">Dept Room</label>
-                                        <select class="form-select" id="selectDept" name="selectDept"
-                          placeholder="All Department">
-                            <option value="SATNUSA">SATNUSA</option>
-                            @foreach ($list_dept as $item)
-                                <option value="{{ $item->dept_code }}">
-                                    {{ $item->dept_name }}</option>
-                            @endforeach
-
-                        </select>
-                                    </div>
+                                                                            </div>
                                 </div>
                                 {{-- Input Image Room --}}
                                 <div class="col-sm-12 mt-3">
@@ -157,10 +147,10 @@
                                             <span id="detailCapacityRoom" name="capacity"></span> People
                                         </td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td style="width: 250px; color: gray;">Dept Room</td>
                                         <td style="color: black;" id="detailDept" name="detailDept"></td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <td style="width: 250px; color: gray;">Image</td>
                                     </tr>
@@ -247,15 +237,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <label for="editDeptName" class="form-label">Dept Room</label>
-                                    <select class="form-select" id="selectDeptEdit" name="selectDeptEdit"
-                                    placeholder="Select Department">
-                                      <option value="SATNUSA">SATNUSA</option>
-                                      @foreach ($list_dept as $item)
-                                          <option value="{{ $item->dept_code }}">
-                                              {{ $item->dept_name }}</option>
-                                      @endforeach
-          
+
                                   </select>
                                     {{-- Peringatan jika inputan kosong --}}
                                     <div id="err-RoomName2" class="text-danger d-none">
@@ -499,7 +481,7 @@
     @include('room.detailJS')
 
     <script>
-        // start gambar 
+        // start gambar
         $(document).on('click', '.image1trigger', function(e) {
             $('#editImage1').click()
         })

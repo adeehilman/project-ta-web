@@ -19,10 +19,10 @@ class RoomController extends Controller
                 ->where('badge_id', session('loggedInUser'))
                 ->first(),
             'userRole' => (int) session()->get('loggedInUser')['session_roles'],
-            'positionName' => DB::table('tbl_vlookup')
-                ->select('name_vlookup')
-                ->where('id_vlookup', session()->get('loggedInUser')['session_roles'])
-                ->first()->name_vlookup,
+            'positionName' => DB::table('tbl_rolemeeting')
+                ->select('name')
+                ->where('id', session()->get('loggedInUser')['session_roles'])
+                ->first()->name,
                 'list_dept' => $list_dept,
         ];
 
@@ -104,11 +104,11 @@ class RoomController extends Controller
         // dd($request);
         try {
             $room_name = $request->room_name;
-            
+
             $floor = $request->floor;
             $capacity = $request->capacity;
             $type = $request->type;
-            $dept = $request->selectDept;
+            $dept = $request->selectDept ?? null;
 
             $count = DB::table('tbl_roommeeting')
                 ->where('room_name', $room_name)
@@ -198,11 +198,11 @@ class RoomController extends Controller
 
                 // Buat koneksi ke API menggunakan Guzzle
                 $client = new Client();
-                
+
                 // Kirim file menggunakan Guzzle
                 foreach ([$imgName1, $imgName2, $imgName3] as $imgName) {
                     $filePath = public_path('RoomMeetingFoto') . '/' . $imgName;
-                    
+
                     $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
                         'multipart' => [
                             [
@@ -224,7 +224,7 @@ class RoomController extends Controller
                     }
                 }
 
-       
+
 
             // Masukkan data ke database
             $data = [
@@ -234,7 +234,7 @@ class RoomController extends Controller
                 'roomimage_1' => $imgName1,
                 'roomimage_2' => $imgName2,
                 'roomimage_3' => $imgName3,
-                'dept'        => $dept,
+                // 'dept'        => $dept,
             ];
 
             $newId = DB::table('tbl_roommeeting')->insertGetId($data);
@@ -279,7 +279,7 @@ class RoomController extends Controller
             $floor = $request->floor;
             $capacity = $request->capacity;
             $type = $request->type;
-            $deptEdit = $request->selectDeptEdit;
+            $deptEdit = $request->selectDeptEdit ?? null;
 
             $count = DB::table('tbl_roommeeting')
                 ->where('room_name', $room_name)
@@ -340,10 +340,10 @@ class RoomController extends Controller
                 $room_name_1 = str_replace(' ', '_', $room_name);
                 $imgName1 = $room_name_1 . '_1_' . time() . '.' . $ekstensi1;
                 $file1->move(public_path('RoomMeetingFoto'), $imgName1);
-                
+
                 // send guzzle
                 $client = new Client();
-                $filePath = public_path('RoomMeetingFoto') . '/' . $imgName1;        
+                $filePath = public_path('RoomMeetingFoto') . '/' . $imgName1;
                     $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
                         'multipart' => [
                             [
@@ -362,7 +362,7 @@ class RoomController extends Controller
                         ]);
                     }
 
-                
+
                 $data['roomimage_1'] = $imgName1;
             }
 
@@ -384,14 +384,14 @@ class RoomController extends Controller
                         'MSG' => 'Image size cannot be more than 10 MB',
                     ]);
                 }
-                
+
 
                 $room_name_2 = str_replace(' ', '_', $room_name);
                 $imgName2 = $room_name_2 . '_2_' . time() . '.' . $ekstensi2;
                 $file2->move(public_path('RoomMeetingFoto'), $imgName2);
 
                 $client = new Client();
-                $filePath = public_path('RoomMeetingFoto') . '/' . $imgName2;        
+                $filePath = public_path('RoomMeetingFoto') . '/' . $imgName2;
                     $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
                         'multipart' => [
                             [
@@ -409,7 +409,7 @@ class RoomController extends Controller
                             'MSG' => 'Gagal mengunggah file ke platform',
                         ]);
                     }
-                
+
 
                 $data['roomimage_2'] = $imgName2;
             }
@@ -438,7 +438,7 @@ class RoomController extends Controller
                 $file3->move(public_path('RoomMeetingFoto'), $imgName3);
 
                 $client = new Client();
-                $filePath = public_path('RoomMeetingFoto') . '/' . $imgName3;        
+                $filePath = public_path('RoomMeetingFoto') . '/' . $imgName3;
                     $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
                         'multipart' => [
                             [
@@ -460,7 +460,7 @@ class RoomController extends Controller
                 $data['roomimage_3'] = $imgName3;
             }
              // Kirim file menggunakan Guzzle
-             
+
 
             DB::table('tbl_roommeeting')
                 ->where('id', $id)

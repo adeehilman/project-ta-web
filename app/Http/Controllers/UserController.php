@@ -21,10 +21,10 @@ class UserController extends Controller
                 ->where('badge_id', session('loggedInUser'))
                 ->first(),
             'userRole' => (int) session()->get('loggedInUser')['session_roles'],
-            'positionName' => DB::table('tbl_vlookup')
-                ->select('name_vlookup')
-                ->where('id_vlookup', session()->get('loggedInUser')['session_roles'])
-                ->first()->name_vlookup,
+            'positionName' => DB::table('tbl_rolemeeting')
+                ->select('name')
+                ->where('id', session()->get('loggedInUser')['session_roles'])
+                ->first()->name,
 
             'list_position' => $list_position,
             'list_employee' => $list_employee,
@@ -216,12 +216,12 @@ class UserController extends Controller
         $txSearch = '%' . trim($request->input('q')) . '%';
 
         // dd($txSearch);
-        $query = "SELECT fullname, badge_id, position_name FROM tbl_karyawan k INNER JOIN tbl_position p ON p.position_code = k.position_code WHERE (fullname LIKE '$txSearch' OR badge_id LIKE '$txSearch') LIMIT 100";
+        $query = "SELECT fullname, badge_id, position_name FROM tbl_karyawan k LEFT JOIN tbl_position p ON p.position_code = k.position_code WHERE (fullname LIKE '$txSearch' OR badge_id LIKE '$txSearch') LIMIT 100";
         $list_w_participant = DB::select($query);
 
         $listParticipantPosition = [];
         foreach ($list_w_participant as $key => $item) {
-            array_push($listParticipantPosition, $item->position_name);
+            array_push($listParticipantPosition, $item->position_name ?? '-');
         }
 
         $listParticipantEd = [];

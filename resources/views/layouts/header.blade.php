@@ -209,9 +209,9 @@
     <div class="sidebar closes">
         <ul class="nav-links">
 
-           
 
-            {!! $userRole !== 84 && $userRole !== 85
+
+            {!! $userRole !== 1 && $userRole !== 3
                 ? '
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <li>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <a style="width:70px" href="' .
@@ -240,7 +240,7 @@
                 $listAktif = request()->routeIs('list') ? 'text-danger' : '';
                 $groupAktif = request()->routeIs('grup') ? 'text-danger' : '';
             @endphp
-            {!! $userRole == 63 || $userRole == 64 || $userRole == 84 || $userRole == 85
+            {!! $userRole == 63 || $userRole == 64 || $userRole == 1 || $userRole == 3
                 ? '<li>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <div class="icon-links mt-2">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <a href="javascript:void(0)" style="width: 70px; ">
@@ -297,7 +297,7 @@
                             href="{{ route('pkb') }}">Grup PKB</a></li> --}}
             {{-- </ul>
             </li> --}}
-            
+
             @if (in_array($userRole, [63, 64]))
                 <li>
                     @php
@@ -338,7 +338,7 @@
                         <li>
                             <a class="link_name {{ (request()->routeIs('dataProcess') || request()->routeIs('dataReport') || request()->routeIs('dataNotice')) ? 'text-danger' : '' }}">Pengkinian Data</a>
                         </li>
-                        {!! $userRole == 63 || $userRole == 64 || $userRole == 65 || $userRole == 66 || $userRole == 84
+                        {!! $userRole == 63 || $userRole == 64 || $userRole == 65 || $userRole == 3 || $userRole == 1
                         ? ' <li>
                             <a class="{{ $updateemployeedataAktif }}" href="' . route('dataProcess') .'">Proses Pengkinian Data</a>
                             <a class="{{ $updateemployeedataAktif }}" href="' . route('dataReport') .'">Laporan Pengkinian Data</a>
@@ -347,7 +347,7 @@
                             </li>
                           '
                         : '' !!}
-                       
+
                         @php
                             $updateemployeedataAktif = request()->routeIs('meetingSummary') ? 'text-danger' : '';
                         @endphp
@@ -368,7 +368,7 @@
                     $lmsAktif = request()->routeIs('lms') ? 'text-danger' : '';
                     $lpbAktif = request()->routeIs('lpb') ? 'text-danger' : '';
                 @endphp
-                {!! $userRole !== 84 && $userRole !== 85
+                {!! $userRole !== 1 && $userRole !== 3
                     ? '<div class="icon-links mt-2">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <a href="javascript:void(0)" style="width: 70px">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <i class="bx bx-devices fs-5 ' .
@@ -532,7 +532,7 @@
                     $meetingAktif = request()->routeIs('room') ? '#dc3545' : (request()->routeIs('meeting') ? '#dc3545' : '#41443D');
                 @endphp
 
-                @if (in_array($userRole, [84, 85]))
+                @if (in_array($userRole, [1, 3]))
                     <div class="icon-links">
                         <a href="javascript:void(0)" style="width:70px">
                             <span class="mt-2" style="margin-left:27px;">
@@ -571,7 +571,7 @@
                         $meetingAktif = request()->routeIs('room') ? 'text-danger' : '';
                     @endphp
 
-                    @if (in_array($userRole, [84, 85]))
+                    @if (in_array($userRole, [1, 3]))
                         <li>
                             <a class="{{ request()->routeIs('room') ? 'text-danger' : '' }}"
                                 href="{{ route('room') }}">List Room</a>
@@ -616,7 +616,7 @@
                     $reportAktif = request()->routeIs('meetingSummary') ? '#dc3545' : (request()->routeIs('roomsummary') ? '#dc3545' : (request()->routeIs('meetingDetailSummary') ? '#dc3545' : (request()->routeIs('/meetingsummary/detailSummary') ? '#dc3545' : (request()->routeIs('/roomsummary/detailSummary') ? '#dc3545' : '#41443D'))));
                 @endphp
 
-                @if (in_array($userRole, [84, 85]))
+                @if (in_array($userRole, [1, 3]))
                     <div class="icon-links">
                         <a href="javascript:void(0)" style="width:70px">
                             <i class="bx bx-file fs-5" style="color: {{ $reportAktif }}"></i>
@@ -647,7 +647,7 @@
                         $reportAktif = request()->routeIs('meetingSummary') ? 'text-danger' : '';
                     @endphp
 
-                    @if (in_array($userRole, [84, 85]))
+                    @if (in_array($userRole, [1, 3]))
                         <li>
                             <a class="{{ (request()->routeIs('roomsummary') ? 'text-danger' : request()->routeIs('/roomsummary/detailSummary')) ? 'text-danger' : '' }}"
                                 href="{{ route('roomsummary') }}">Room Summary</a>
@@ -715,9 +715,9 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <svg width="30" height="30" viewBox="0 0 32 32" fill="' .
                         $userAktif .
                         '" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-6 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM19 15H9v-.25C9 12.901 11.254 11 14 11s5 1.901 5 3.75V15z" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-6 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM19 15H9v-.25C9 12.901 11.254 11 14 11s5 1.901 5 3.75V15z"
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         stroke="{{ $userAktif }}" stroke-width="1" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <path d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8z" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <path d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8z"
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         stroke="{{ $userAktif }}" stroke-width="1" />
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </svg>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </span>
@@ -733,9 +733,9 @@
                     <li>
                         <a class="link_name" href="javascript:void(0)">User Account</a>
                     </li>
-                   
-                   
-              
+
+
+
 
                 </ul>
             </li>
@@ -787,7 +787,7 @@
                             route('meeting') .
                             '">List Meeting</a></li>'
                         : '' !!} --}}
-                       
+
                         @php
                             $internAktif = request()->routeIs('meetingSummary') ? 'text-danger' : '';
                         @endphp
@@ -801,7 +801,7 @@
 
                 </li>
             @endif
-            
+
 
 
             {{-- <li>
@@ -868,9 +868,9 @@
 
             $('#notif-menu').empty();
             $('#count_notif').empty();
-           
 
-            if (roles == 84) {
+
+            if (roles == 1) {
                 $('#count_notif').append(res.jumlah_count)
                 $('#notif-menu').append(
                     `<li class="dropdowns-menu-item mb-2" style="color: black">

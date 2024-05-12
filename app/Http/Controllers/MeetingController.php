@@ -17,7 +17,7 @@ class MeetingController extends Controller
         $now = $req->get('now');
 
         // query filter
-        $query_list_room = "SELECT * FROM tbl_roommeeting WHERE dept = 'SATNUSA' ORDER BY
+        $query_list_room = "SELECT * FROM tbl_roommeeting ORDER BY
         CAST(SUBSTRING_INDEX(room_name, ' ', -1) AS UNSIGNED), room_name";
         $list_room = DB::select($query_list_room);
 
@@ -35,10 +35,10 @@ class MeetingController extends Controller
                 ->where('badge_id', session('loggedInUser'))
                 ->first(),
             'userRole' => (int) session()->get('loggedInUser')['session_roles'],
-            'positionName' => DB::table('tbl_vlookup')
-                ->select('name_vlookup')
-                ->where('id_vlookup', session()->get('loggedInUser')['session_roles'])
-                ->first()->name_vlookup,
+            'positionName' => DB::table('tbl_rolemeeting')
+                ->select('name')
+                ->where('id', session()->get('loggedInUser')['session_roles'])
+                ->first()->name,
 
             'list_room' => $list_room,
             'list_participant' => $list_participant,
@@ -105,44 +105,6 @@ class MeetingController extends Controller
             $qFilter .= '';
         }
 
-        // $query = "
-        // SELECT
-        //     tm.id as meetingId,
-        //     tm.roommeeting_id,
-        //     tm.title_meeting,
-        //     tm.meeting_date,
-        //     tm.meeting_start,
-        //     tm.meeting_end,
-        //     tm.statusmeeting_id,
-        //     tm.description,
-        //     tm.booking_by,
-        //     booking_date,
-        //     update_date,
-        //     COALESCE(tm.update_date, tm.booking_date) as latestDate, -- Menggunakan COALESCE untuk mengambil tanggal terbaru
-        //     tm.reason,
-        //     b.room_name,
-        //     b.id,
-        //     b.floor,
-        //     k.fullname,
-        //     k.badge_id,
-        //     s.status_name_eng,
-        //     (
-        //         SELECT COUNT(*)
-        //         FROM tbl_participant p
-        //         WHERE p.meeting_id = tm.id
-        //     ) as participant_count
-        // FROM
-        //     tbl_meeting tm
-        // INNER JOIN
-        //     tbl_roommeeting b ON b.id = tm.roommeeting_id
-        // INNER JOIN
-        //     tbl_karyawan k ON tm.booking_by = k.badge_id
-        // INNER JOIN
-        //     tbl_statusmeeting s ON s.id = tm.statusmeeting_id
-        // WHERE (title_meeting LIKE '$txSearch' OR room_name LIKE '$txSearch' OR floor LIKE '$txSearch' OR meeting_date LIKE '$txSearch' OR meeting_start LIKE '$txSearch' OR meeting_start LIKE '$txSearch'
-        // OR status_name_eng LIKE '$txSearch' OR fullname LIKE '$txSearch')$sFilter $qFilter ORDER BY tm.statusmeeting_id,
-        // ABS(DATEDIFF(NOW(), tm.meeting_date)), latestDate ASC
-        // ";
         $query = "
         SELECT
         tm.id as meetingId,
@@ -163,7 +125,7 @@ class MeetingController extends Controller
         k.fullname,
         k.badge_id,
         s.status_name_eng,
-        
+
         (
         SELECT COUNT(*)
         FROM tbl_participant p
@@ -572,7 +534,7 @@ class MeetingController extends Controller
                         $category = 'MEETING';
                         $tag = 'MEETING';
                         $this->sendNotification($badge_id, $pesan, $subpesan, $category, $tag, $idMeeting);
-                        
+
                     }
                 }
             }
@@ -681,7 +643,7 @@ class MeetingController extends Controller
                         $query = "SELECT participant FROM tbl_participant WHERE meeting_id = '$idMeeting'";
                         $results = DB::select($query);
 
-           
+
                         foreach ($results as $result) {
                             $badge_ids[] = $result->participant;
                         }
@@ -784,7 +746,7 @@ class MeetingController extends Controller
                     ]);
             }
 
-           
+
 
             // update meeting
             DB::table('tbl_meeting')
@@ -1267,7 +1229,7 @@ class MeetingController extends Controller
                     $badge_ids[] = $result->participant;
                 }
 
-                // RESEPSIONIS NOTIFICATION Rapat BARU 
+                // RESEPSIONIS NOTIFICATION Rapat BARU
                 $badgeIds = $this->getBadgeRecepcionist();
                 foreach ($badgeIds as $badge_id) {
                     $pesan = "Rapat baru $Title ";
@@ -1291,8 +1253,8 @@ class MeetingController extends Controller
                 'MSG' => 'OK.',
             ]);
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollBack();
+            dd($th);
             return response()->json(
                 [
                     'MSGTYPE' => 'E',
@@ -1382,7 +1344,7 @@ class MeetingController extends Controller
         // URL API tujuan Prod
         // $apiUrl = 'http://webapi.satnusa.com/api/meeting/send-notif';
         // dev
-        $apiUrl = 'http://192.168.88.60:7005/api/notifikasi/send';
+        $apiUrl = config('urls.base_url') . '/api/notifikasi/send';
 
         // Membuat instance Client Guzzle
         $client = new Client();
@@ -1413,7 +1375,7 @@ class MeetingController extends Controller
 
     private function onlyNotif($badge_id, $pesan, $subpesan){
         // URL API tujuan Prod
-        $apiUrl = 'http://webapi.satnusa.com/api/meeting/send-notif';
+        $apiUrl = config('urls.base_url') . '/api/meeting/send-notif';
         // dev
         // $apiUrl = 'http://192.168.88.60:7005/api/notifikasi/send';
 
