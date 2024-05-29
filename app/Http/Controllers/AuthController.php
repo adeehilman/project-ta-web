@@ -99,7 +99,7 @@ class AuthController extends Controller
             'positionName' => DB::table('tbl_rolemeeting')
                 ->select('name')
                 ->where('id', session()->get('loggedInUser')['session_roles'])
-                ->first(),
+                ->first()->name,
         ];
 
         return view('auth.change-password', $data);

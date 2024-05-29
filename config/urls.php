@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'base_url'  => 'https://project-ta-api-production.up.railway.app',
+    'base_url'  => 'http://202.10.36.227:8082',
 ];

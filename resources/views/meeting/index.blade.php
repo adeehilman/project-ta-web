@@ -19,7 +19,7 @@
                                 <div class="row mb-3">
                                     <div class="col-sm-12">
                                         <label for="MeetingTitle" class="form-label">Meeting Title</label>
-                                        <input class="form-control" id="titleAdd" name="MeetingTitleAdd">
+                                        <input class="form-control" id="titleAdd" name="MeetingTitleAdd" maxlength="90">
                                         <!-- <input class="form-control" id="meetingIdAdd" name="MeetingId" hidden> -->
                                         <div id="err-MeetingTitleAdd" class="text-danger d-none">
                                             Meeting title field is required.
@@ -147,7 +147,7 @@
 
                                     </div>
                                 </div>
-                                
+
 
                                 <div id="ProjectInput" class="col-sm-12 mt-2">
                                     <label for="ProjectName" class="form-label">Project Name</label>
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                   
+
 
                                     <div class="form-check form-check-inline">
 
@@ -222,7 +222,7 @@
                                 </div>
 
 
-                               
+
 
                             </form>
                         </div>
@@ -512,7 +512,7 @@
                                         <label for="multitabs3" class="tabs" id="tab3"
                                             style="cursor: pointer">History Status</label>
                                         <label for="multitabs4" class="tabs" id="tab4"
-                                            style="cursor: pointer">Respons</label>
+                                            style="cursor: pointer">Response</label>
                                     </div>
                                     <div class="tabsContent">
 
@@ -660,7 +660,7 @@
                                         {{-- Tab konten History Status --}}
                                         <div class="tabsContent3" style="height:460px;">
                                             <div class="row mx-2 my-2">
-                                                <div class="col-sm-2 mt-2">
+                                                <div class="col-sm-2">
                                                     <div id="containerRiwayatClock">
                                                     </div>
                                                 </div>
@@ -899,7 +899,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 mb-2">
-                                   
+
 
                                     <div class="form-check form-check-inline">
 
@@ -956,7 +956,7 @@
 
                                         </div>
                                 </div>
-                            
+
 
 
 
@@ -992,82 +992,17 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" id="notification">
-                            {{-- Informasi Atas --}}
-                                <div class="col-xl-12">
-                                    <div class="d-flex">
-                                        <p style="width: 150px">Badge ID</p>
-                                        <p class="me-2">:</p>
-                                        <p style="width: 250px" class="fw-bold" id="detailBadge"></p>
-                                    </div>
-                                    <div class="d-flex mt-3">
-                                        <p style="width: 150px">Name</p>
-                                        <p class="me-2">:</p>
-                                        <p style="width: 250px; white-space: nowrap;" class="fw-bold" id="detailName"></p>
-                                    </div>
-                                    <div class="d-flex mt-3">
-                                        <p style="width: 150px">Date</p>
-                                        <p class="me-2">:</p>
-                                        <p style="width: 250px" class="fw-bold" id="detailDate"></p>
-                                    </div>
-                                    <div class="d-flex mt-3">
-                                        <p style="width: 150px">Last Position</p>
-                                        <p class="me-2">:</p>
-                                        <p style="width: 250px" class="fw-bold" id="detailLastProd"></p>
-                                    </div>
-                                    <div class="d-flex mt-3">
-                                        <p style="width: 150px">Total Break</p>
-                                        <p class="me-2">:</p>
-                                        <p style="width: 250px" class="fw-bold" id="detailTotal"></p>
-                                    </div>
+                        <div class="modal-body" style="font-size: 16px; overflow:auto; max-height: 700px;">
+                            <form id="formAdd" method="post" autocomplete="off">
+                                @csrf
+                                <input class="form-control" type="text" id="meetingIdAttend" name="meetingIdAttend"
+                                    hidden>
+
+                                <div id="listOfParticipantAttend">
                                 </div>
-            
-                                {{-- Informasi table --}}
-                                <div id="containerDetailAttendance" class="col-sm-12 mt-3">
-                                    <ul class="nav nav-underline mb-2" id="myTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active text-black" id="pos-tab" data-bs-toggle="tab"
-                                                data-bs-target="#pos-tab-pane" type="button" role="tab"
-                                                aria-controls="pos-tab-pane" aria-selected="true">Position</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link text-black" id="break-tab" data-bs-toggle="tab"
-                                                data-bs-target="#break-tab-pane" type="button" role="tab"
-                                                aria-controls="break-tab-pane" aria-selected="false">Break</button>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content" id="myTabContent" style="max-height: 400px; overflow-y: auto;">
-                                        <div class="tab-pane fade show active" id="pos-tab-pane" role="tabpanel"
-                                            aria-labelledby="position-tab" tabindex="0">
-                                            <table id="tableDetailPosition" class="table table-responsive table-hover">
-                                                <thead>
-                                                    <tr style="color: #cd202e; height: 10px;" class="table-danger ">
-                                                        <th scope="col">Position</th>
-                                                        <th scope="col">In/Out</th>
-                                                        <th scope="col">Time</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="tbodyDetailPosition">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="tab-pane fade" id="break-tab-pane" role="tabpanel"
-                                            aria-labelledby="break-tab" tabindex="0" style="max-height: 400px; overflow-y: auto;">
-                                            <table id="tableDetailBreak" class="table table-responsive table-hover">
-                                                <thead>
-                                                    <tr style="color: #cd202e; height: 10px;" class="table-danger ">
-                                                        <th scope="col">Time Out</th>
-                                                        <th scope="col">Time In</th>
-                                                        <th scope="col">Duration (Minutes)</th>
-                                                        <th id="actionuser" scope="col">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="tbodyDetailBreak">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+
+
+                            </form>
                         </div>
 
                         <div class="modal-footer">

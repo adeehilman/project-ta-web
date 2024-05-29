@@ -46,7 +46,7 @@
     function showInputGuest() {
         document.getElementById('customertName').style.display = 'block';
         document.getElementById('customertName').querySelector('input').focus();
-        
+
     }
 
     function hideInputGuest() {
@@ -68,7 +68,8 @@
         time_24hr: true,
         dateFormat: "H:i",
         minTime: "07:00",
-        maxTime: "17:00",
+        maxTime: "23:00",
+        minuteIncrement: 1
     });
 
     const finishMeetingAdd = flatpickr("#finishMeetingAdd", {
@@ -77,7 +78,8 @@
         time_24hr: true,
         dateFormat: "H:i",
         minTime: "18:00",
-        maxTime: "21:00",
+        maxTime: "00:00",
+        minuteIncrement: 1
     });
 
     // Menambahkan event listener untuk perubahan waktu pada elemen startMeetingAdd

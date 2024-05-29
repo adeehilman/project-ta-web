@@ -141,7 +141,7 @@ class MeetingController extends Controller
         INNER JOIN
         tbl_statusmeeting s ON s.id = tm.statusmeeting_id
         WHERE (title_meeting LIKE '$txSearch' OR room_name LIKE '$txSearch' OR floor LIKE '$txSearch' OR meeting_date LIKE '$txSearch' OR meeting_start LIKE '$txSearch' OR meeting_start LIKE '$txSearch'
-        OR status_name_eng LIKE '$txSearch' OR fullname LIKE '$txSearch')AND dept = 'SATNUSA' $sFilter $qFilter
+        OR status_name_eng LIKE '$txSearch' OR fullname LIKE '$txSearch')  $sFilter $qFilter
         ORDER BY  CASE
                 WHEN tm.statusmeeting_id IN (1, 2, 3, 4) THEN 0 -- Prioritaskan status 1, 2, 3, 4
                 ELSE 1
@@ -1254,7 +1254,7 @@ class MeetingController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
+            // dd($th);
             return response()->json(
                 [
                     'MSGTYPE' => 'E',
@@ -1325,7 +1325,7 @@ class MeetingController extends Controller
             }
             DB::commit();
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             DB::rollBack();
             return response()->json(
                 [
@@ -1457,7 +1457,7 @@ class MeetingController extends Controller
 
             // dd($attendance);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            // dd($th->getMessage());
             DB::rollBack();
             return response()->json('FAILED.', 400);
         }

@@ -32,6 +32,7 @@ use App\Http\Controllers\RoomSummaryController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
+use App\Http\Controllers\UserAuthorizeController;
 use App\Http\Controllers\InternshipController;
 use Illuminate\Support\Facades\Route;
 
@@ -96,20 +97,6 @@ Route::group(['middleware' => ['LoginCheck']], function () {
     Route::get('/pkb', [PKBKaryawanController::class, 'index'])->name('pkb');
     Route::get('/addpkb', [AddPKBKaryawanController::class, 'index'])->name('addpkb');
 
-    // //section update employee data process
-    // Route::get('/dataProcess', [UpdateEmployeeDataProcessController::class, 'index'])->name('dataProcess');
-    // Route::get('/dataProcess/detail/{id}', [UpdateEmployeeDataProcessController::class, 'detail'])->name('dataProcessdetail');
-    // Route::get('/dataProcess/listpengkinian', [UpdateEmployeeDataProcessController::class, 'getListPengkinian'])->name('getListPengkinian');
-    // Route::get('/dataProcess/listclosed', [UpdateEmployeeDataProcessController::class, 'getListClosed'])->name('getListClosed');
-    // Route::get('/dataProcess/detailmodal/{id}', [UpdateEmployeeDataProcessController::class, 'detailmodal'])->name('dataProcessdetailmodal');
-    // Route::get('/dataProcess/getModalPengkinian', [UpdateEmployeeDataProcessController::class, 'getModalPengkinian'])->name('getModalPengkinian');
-    // Route::post('/dataProcess/addApproved', [UpdateEmployeeDataProcessController::class, 'addApproved'])->name('addApproved');
-    // Route::post('/dataProcess/addReject', [UpdateEmployeeDataProcessController::class, 'addReject'])->name('addReject');
-    // Route::post('dataProcess/detail/tolakpengkinian', [UpdateEmployeeDataProcessController::class ,'tolakpengkinian'])->name('tolakpengkinian');
-    // Route::post('dataProcess/detail/terimapengkinian', [UpdateEmployeeDataProcessController::class ,'terimapengkinian'])->name('terimapengkinian');
-    // Route::post('/dataProcess/detail/tambahtanggapan', [UpdateEmployeeDataProcessController::class, 'tambahtanggapan'])->name('tambahtanggapan');
-
-
 
     //section update employee data report
     Route::get('/dataReport', [UpdateEmployeeDataReportController::class, 'index'])->name('dataReport');
@@ -121,95 +108,6 @@ Route::group(['middleware' => ['LoginCheck']], function () {
      Route::post('/dataNotice/tambahnotice', [UpdateEmployeeDataNoticeController::class, 'tambahnotice'])->name('tambahnotice');
      Route::post('/dataNotice/editnotice', [UpdateEmployeeDataNoticeController::class, 'updatenotice'])->name('updatenotice');
      Route::get('/dataNotice/deletenotice', [UpdateEmployeeDataNoticeController::class, 'hapusnotice'])->name('hapusnotice');
-
-
-
-    // section mms
-    // Route::get('/mms', [MMSController::class, 'index'])->name('mms');
-    // Route::get('/set_inactive_mobile', [MMSController::class, 'set_inactive_mobile'])->name('setinactivemobile');
-    // Route::get('/update_barcode_label', [MMSController::class, 'update_barcode_label'])->name('updatebarcodelabel');
-    // Route::get('/update_uuid', [MMSController::class, 'update_uuid'])->name('updateuuid');
-    // Route::get('/update_tipe_hp', [MMSController::class, 'update_tipe_hp'])->name('updatetipehp');
-    // Route::get('/mms_list', [MMSController::class, 'mms_list'])->name('mmslist');
-    // Route::get('/karyawan_by_id', [MMSController::class, 'karyawan_by_id'])->name('karyawanbyid');
-    // Route::get('/merek_hp_list', [MMSController::class, 'merek_hp_list'])->name('merekhplist');
-    // Route::get('/permohonan_list', [MMSController::class, 'permohonan_list'])->name('permohonanlist');
-    // Route::get('/status_permohonan_list', [MMSController::class, 'status_permohonan_list'])->name('statuspermohonanlist');
-    // Route::get('/os_list', [MMSController::class, 'os_list'])->name('oslist');
-    // Route::post('/simpan_mms', [MMSController::class, 'simpan_mms'])->name('simpanmms');
-    // Route::get('/get_mms_by_id', [MMSController::class, 'get_mms_by_id'])->name('getmmsbyid');
-    // Route::post('/update_pengajuan_mms', [MMSController::class, 'update_pengajuan_mms'])->name('updatepengajuanmms');
-    // Route::post('/simpan_tanggapan_mms', [MMSController::class, 'simpan_tanggapan_mms'])->name('simpantanggapanmms');
-    // Route::get('/check_imei', [MMSController::class, 'check_imei'])->name('checkimei');
-    // Route::get('/check_uuid', [MMSController::class, 'check_uuid'])->name('checkuuid');
-    // Route::get('/check_barcode_label', [MMSController::class, 'check_barcode_label'])->name('checkbarcodelabel');
-    // Route::get('/tanggapan_list', [MMSController::class, 'tanggapan_list'])->name('tanggapanlist');
-    // Route::get('/decrypt_uuid', [MMSController::class, 'decrypt_uuid'])->name('decryptuuid');
-
-    // // section lms
-    // Route::get('/lms', [LMSController::class, 'index'])->name('lms');
-    // Route::get('/lms_list', [LMSController::class, 'lms_list'])->name('lmslist');
-    // Route::get('/merek_laptop_list', [LMSController::class, 'merek_laptop_list'])->name('mereklaptoplist');
-    // Route::get('/durasi_pemakaian_list', [LMSController::class, 'durasi_pemakaian_list'])->name('durasipemakaianlist');
-    // Route::get('/alasan_list', [LMSController::class, 'alasan_list'])->name('alasanlist');
-    // Route::get('/get_lms_by_id', [LMSController::class, 'get_lms_by_id'])->name('getlmsbyid');
-    // Route::post('/simpan_lms', [LMSController::class, 'simpan_lms'])->name('simpanlms');
-    // Route::post('/simpan_tanggapan_lms', [LMSController::class, 'simpan_tanggapan_lms'])->name('simpantanggapanlms');
-    // Route::get('/status_permohonan_list_laptop', [LMSController::class, 'status_permohonan_list_laptop'])->name('statuspermohonanlistlaptop');
-    // Route::get('/check_barcode_label_lms', [LMSController::class, 'check_barcode_label_lms'])->name('checkbarcodelabellms');
-    // Route::get('/check_asset_number', [LMSController::class, 'check_asset_number'])->name('checkassetnumber');
-    // Route::post('/update_pengajuan_lms', [LMSController::class, 'update_pengajuan_lms'])->name('updatepengajuanlms');
-    // Route::get('/tanggapan_list_lms', [LMSController::class, 'tanggapan_list_lms'])->name('tanggapanlistlms');
-    // Route::post('/recall_lms', [LMSController::class, 'recall_lms'])->name('recalllms');
-    // Route::get('/update_barcode_label_lms', [LMSController::class, 'update_barcode_label_lms'])->name('updatebarcodelabellms');
-
-    // /* karna pake session authentication, maka api harus ditarok di route web, karna tidak dapat akses session */
-    // Route::get('/pemberitahuan', [PemberitahuanController::class, 'index'])->name('pemberitahuan');
-    // Route::post('/simpan_pemberitahuan', [PemberitahuanController::class, 'simpan_pemberitahuan'])->name('simpanpemberitahuan');
-    // Route::post('/update_pemberitahuan', [PemberitahuanController::class, 'update_pemberitahuan'])->name('updatepemberitahuan');
-    // Route::get('/group_list', [PemberitahuanController::class, 'group_list'])->name('grouplist');
-    // Route::get('/pemberitahuan_list', [PemberitahuanController::class, 'pemberitahuan_list'])->name('pemberitahuanlist');
-    // Route::get('/get_pemberitahuan_by_id', [PemberitahuanController::class, 'get_pemberitahuan_by_id'])->name('getpemberitahuanbyid');
-
-    // Route::get('/pemberitahuan/list', [PemberitahuanController::class, 'list'])->name('list_pemberitahuan');
-    // Route::get('/pemberitahuan/penerima/{pemberitahuanId}', [PemberitahuanController::class, 'getReceiver']);
-    // Route::get('/pemberitahuan/show/{id}', [PemberitahuanController::class, 'show'])->name('show_pemberitahuan');
-    // Route::get('/pemberitahuan/{id}', [PemberitahuanController::class, 'detail']);
-    // Route::post('/pemberitahuan', [PemberitahuanController::class, 'store'])->name('simpan_pemberitahuan');
-    // Route::put('/pemberitahuan/{id}', [PemberitahuanController::class, 'update'])->name('ubah_pemberitahuan');
-    // // Route::delete('/pemberitahuan/{id}', [LokerController::class, 'destroy'])->name('hapus_loker');
-
-    // Route::get('/loker', [LokerController::class, 'index'])->name('loker');
-    // Route::get('/loker/list', [LokerController::class, 'list'])->name('list_loker');
-    // Route::get('/loker/detail', [LokerController::class, 'getDetailLoker'])->name('detail_loker');
-    // Route::post('/loker/insert', [LokerController::class, 'insert'])->name('insert_loker');
-    // Route::post('/loker/update', [LokerController::class, 'update'])->name('update_loker');
-    // Route::get('/loker/delete', [LokerController::class, 'hapus'])->name('hapus_loker');
-
-    // Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
-
-    // Route::get('/peran', [PeranController::class, 'index'])->name('peran');
-
-    // Route::get('/kritik', [KritikController::class, 'index'])->name('kritik');
-    // Route::get('/kritik_list', [KritikController::class, 'kritik_list'])->name('kritiklist');
-    // Route::post('/simpan_tanggapan_kritik', [KritikController::class, 'simpan_tanggapan_kritik'])->name('simpantanggapankritik');
-    // Route::get('/tanggapan_list_kritik', [KritikController::class, 'tanggapan_list_kritik'])->name('tanggapanlistkritik');
-    // Route::get('/get_kritik_by_id', [KritikController::class, 'get_kritik_by_id'])->name('getkritikbyid');
-    // Route::post('/selesai_kritik_saran', [KritikController::class, 'selesai_kritik_saran'])->name('selesaikritiksaran');
-    // Route::post('/kritik_set_hide', [KritikController::class, 'setHideKritik'])->name('kritiksethide');
-
-    // // section lpb
-    // Route::get('/lpb', [LPBController::class, 'index'])->name('lpb');
-    // Route::get('/list_pb', [LPBController::class, 'list_pb'])->name('listpb');
-    // Route::get('/get_list_pb_by_badge', [LPBController::class, 'get_list_pb_by_badge'])->name('getlistpbbybadge');
-    // Route::post('/update_pb', [LPBController::class, 'update_pb'])->name('updatepb');
-
-    // // section calendar
-    // Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
-    // Route::post('/calendar/insert', [CalendarController::class, 'insert'])->name('/calendar/insert');
-    // Route::post('/calendar/update', [CalendarController::class, 'update'])->name('/calendar/update');
-    // Route::post('/calendar/delete', [CalendarController::class, 'delete'])->name('/calendar/delete');
-    // Route::get('/calendar/getList', [CalendarController::class, 'getList'])->name('/calendar/getList');
 
     // section list meeting
     Route::get('/meeting', [MeetingController::class, 'index'])->name('meeting');
@@ -248,27 +146,14 @@ Route::group(['middleware' => ['LoginCheck']], function () {
     Route::get('/Room/detail', [RoomController::class, 'detail'])->name('/Room/detail');
 
     Route::get('/user/listEmployee', [UserController::class, 'listEmployee'])->name('/user/listEmployee');
-    // section list user
-    // Route::get('/user', [UserController::class, 'index'])->name('user');
-    // Route::get('/user/getlistuser', [UserController::class, 'getListUser'])->name('/user/getlistuser');
-    // Route::get('/user/getfilteruser', [UserController::class, 'getFilterUser'])->name('/user/getfilteruser');
-    // Route::post('/user/insert', [UserController::class, 'insert'])->name('/user/insert');
-    // Route::get('/user/edit', [UserController::class, 'edit'])->name('/user/edit');
-    // Route::post('/user/update', [UserController::class, 'update'])->name('/user/update');
 
-    // // section list user role
-    // Route::get('/userrole', [UserRoleController::class, 'index'])->name('userrole');
-
-    // section internship attendance
-    // Route::get('/internship', [InternshipController::class, 'index'])->name('internship');
-    // Route::get('/internship/getList', [InternshipController::class, 'getList'])->name('/internship/getList');
-    // Route::get('/internship/getValue', [InternshipController::class, 'getValue'])->name('/internship/getValue');
-    // Route::get('/internship/getAttach', [InternshipController::class, 'getAttach'])->name('/internship/getAttach');
-    // Route::post('/internship/update', [InternshipController::class, 'update'])->name('/internship/update');
-    // Route::get('/internship/detailInternship', [DetailInternshipController::class, 'index'])->name('/internship/detailInternship');
-    // Route::get('/internship/detailInternship/filter', [DetailInternshipController::class, 'filterDesc'])->name('/internship/detailInternship/filter');
-    // Route::get('/internship/detailInternship/getList', [DetailInternshipController::class, 'getList'])->name('/internship/detailInternship/getList');
-    // Route::post('/internship/getListF', [InternshipController::class, 'getList'])->name('/internship/getListF');
+    // section user authorize
+    Route::get('/userauthorize', [UserAuthorizeController::class, 'index'])->name('userauthorize');
+    Route::get('/userauthorize/getList', [UserAuthorizeController::class, 'getList'])->name('/userauthorize/getList');
+    Route::get('/userauthorize/getDept', [UserAuthorizeController::class, 'getDept'])->name('/userauthorize/getDept');
+    Route::get('/userauthorize/getVal', [UserAuthorizeController::class, 'getVal'])->name('/userauthorize/getVal');
+    Route::post('/userauthorize/insert', [UserAuthorizeController::class, 'insert'])->name('/userauthorize/insert');
+    Route::post('/userauthorize/update', [UserAuthorizeController::class, 'update'])->name('/userauthorize/update');
 });
 
 // para export

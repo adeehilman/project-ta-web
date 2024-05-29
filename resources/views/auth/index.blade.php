@@ -78,19 +78,19 @@
                     }
 
                     if (res.status === 200) {
-                        if (parseInt(res.role) === 1 || parseInt(res.role) === 3) {
-                            window.location = '{{ route('meeting') }}'
+                        if (parseInt(res.role) === 2) {
+                            window.location = '{{ route('userauthorize') }}';
                         } else {
 
                             removeValidationClass(formLogin);
                             formLogin[0].reset()
                             // showMessage('success', 'Data berhasil tersimpan');
-                            window.location = '{{ route('dashboard') }}'
+                            window.location = '{{ route('meeting') }}'
                             console.log(res);
-                        }
                     }
                     btnSubmit.children().remove();
                 }
+            }
             })
         })
     </script>

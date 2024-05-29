@@ -199,30 +199,30 @@ class RoomController extends Controller
                 // Buat koneksi ke API menggunakan Guzzle
                 $client = new Client();
 
-                // Kirim file menggunakan Guzzle
-                foreach ([$imgName1, $imgName2, $imgName3] as $imgName) {
-                    $filePath = public_path('RoomMeetingFoto') . '/' . $imgName;
+                // // Kirim file menggunakan Guzzle
+                // foreach ([$imgName1, $imgName2, $imgName3] as $imgName) {
+                //     $filePath = public_path('RoomMeetingFoto') . '/' . $imgName;
 
-                    $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
-                        'multipart' => [
-                            [
-                                'name'     => 'file_upload',
-                                'contents' => fopen($filePath, 'r'),
-                                'filename' => $imgName,
-                            ],
-                        ],
-                    ]);
+                //     $response = $client->request('POST', config('urls.base_url').'/api/platform/upload-file', [
+                //         'multipart' => [
+                //             [
+                //                 'name'     => 'file_upload',
+                //                 'contents' => fopen($filePath, 'r'),
+                //                 'filename' => $imgName,
+                //             ],
+                //         ],
+                //     ]);
 
-                    $statusCode = $response->getStatusCode();
+                //     $statusCode = $response->getStatusCode();
 
-                    if ($statusCode != 200) {
-                        // Gagal mengunggah file ke platform
-                        return response()->json([
-                            'MSGTYPE' => 'W',
-                            'MSG' => 'Gagal mengunggah file ke platform',
-                        ]);
-                    }
-                }
+                //     if ($statusCode != 200) {
+                //         // Gagal mengunggah file ke platform
+                //         return response()->json([
+                //             'MSGTYPE' => 'W',
+                //             'MSG' => 'Gagal mengunggah file ke platform',
+                //         ]);
+                //     }
+                // }
 
 
 
@@ -344,7 +344,7 @@ class RoomController extends Controller
                 // send guzzle
                 $client = new Client();
                 $filePath = public_path('RoomMeetingFoto') . '/' . $imgName1;
-                    $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
+                    $response = $client->request('POST', config('urls.base_url').'/api/platform/upload-file', [
                         'multipart' => [
                             [
                                 'name'     => 'file_upload',
@@ -392,7 +392,7 @@ class RoomController extends Controller
 
                 $client = new Client();
                 $filePath = public_path('RoomMeetingFoto') . '/' . $imgName2;
-                    $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
+                    $response = $client->request('POST', config('urls.base_url').'/api/platform/upload-file', [
                         'multipart' => [
                             [
                                 'name'     => 'file_upload',
@@ -437,25 +437,25 @@ class RoomController extends Controller
                 $imgName3 = $room_name_3 . '_3_' . time() . '.' . $ekstensi3;
                 $file3->move(public_path('RoomMeetingFoto'), $imgName3);
 
-                $client = new Client();
-                $filePath = public_path('RoomMeetingFoto') . '/' . $imgName3;
-                    $response = $client->request('POST', 'https://webapi.satnusa.com/api/platform/upload-file', [
-                        'multipart' => [
-                            [
-                                'name'     => 'file_upload',
-                                'contents' => fopen($filePath, 'r'),
-                                'filename' => $imgName3,
-                            ],
-                        ],
-                    ]);
-                    $statusCode = $response->getStatusCode();
-                    if ($statusCode != 200) {
-                        // Gagal mengunggah file ke platform
-                        return response()->json([
-                            'MSGTYPE' => 'W',
-                            'MSG' => 'Gagal mengunggah file ke platform',
-                        ]);
-                    }
+                // $client = new Client();
+                // $filePath = public_path('RoomMeetingFoto') . '/' . $imgName3;
+                //     $response = $client->request('POST', config('urls.base_url').'/api/platform/upload-file', [
+                //         'multipart' => [
+                //             [
+                //                 'name'     => 'file_upload',
+                //                 'contents' => fopen($filePath, 'r'),
+                //                 'filename' => $imgName3,
+                //             ],
+                //         ],
+                //     ]);
+                //     $statusCode = $response->getStatusCode();
+                //     if ($statusCode != 200) {
+                //         // Gagal mengunggah file ke platform
+                //         return response()->json([
+                //             'MSGTYPE' => 'W',
+                //             'MSG' => 'Gagal mengunggah file ke platform',
+                //         ]);
+                //     }
 
                 $data['roomimage_3'] = $imgName3;
             }

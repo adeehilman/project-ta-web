@@ -87,10 +87,10 @@ class DetailMeetingSummaryContoller extends Controller
                 ->where('badge_id', session('loggedInUser'))
                 ->first(),
             'userRole' => (int) session()->get('loggedInUser')['session_roles'],
-            'positionName' => DB::table('tbl_vlookup')
-                ->select('name_vlookup')
-                ->where('id_vlookup', session()->get('loggedInUser')['session_roles'])
-                ->first()->name_vlookup,
+            'positionName' => DB::table('tbl_rolemeeting')
+                ->select('name')
+                ->where('id', session()->get('loggedInUser')['session_roles'])
+                ->first()->name,
             'list_data' => $list_data,
             'total' => $list_total[0],
             'time' => $formattedDate,

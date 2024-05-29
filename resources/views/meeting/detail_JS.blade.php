@@ -217,8 +217,9 @@
                     time_24hr: true,
                     dateFormat: "H:i",
                     minTime: "07:00",
-                    maxTime: "17:00",
+                    maxTime: "00:00",
                     defaultDate: defaultStart,
+                    minuteIncrement: 1
                 });
 
                 const finishMeetingDetailEdit = flatpickr("#finishMeetingDetailEdit", {
@@ -227,8 +228,9 @@
                     time_24hr: true,
                     dateFormat: "H:i",
                     minTime: "07:00",
-                    maxTime: "21:00",
+                    maxTime: "00:00",
                     defaultDate: defaultFinish,
+                    minuteIncrement: 1
                 });
 
                 // ketika staus ON GOING
@@ -663,13 +665,13 @@
                         const formattedDate = formatDate(v.createdate);
                         const extractedTime = extractTime(v.createdate);
                         htmlLeft +=
-                            ` 
+                            `
 
                             <div class="mb-4">
                                 <p class="fw-bold mb-0">${formattedDate}</p>
                                 <span class="text-muted">${extractedTime}</span>
                             </div>
-                                        
+
 
                             `;
 
@@ -697,7 +699,7 @@
                     $.each(response.data, (i, v) => {
                         htmlRight +=
                             `
-                            
+
                             <li class="step step--done">
                                 <div class="step__title text-dark">${v.status_name_eng} - (${v.createby})</div>
                                 <p class="step__detail ${v.remark == '' || v.remark == null ? 'text-white' : 'text-secondary'}">${v.remark == '' || v.remark == null ? "-" : v.remark}</p>
@@ -710,8 +712,8 @@
                             </li>
 
 
-                           
-                            
+
+
                             `;
                     })
                     htmlRight += '</ul>';
