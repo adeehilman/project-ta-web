@@ -208,6 +208,26 @@
 @if (Route::current()->getName() != 'login')
     <div class="sidebar closes">
         <ul class="nav-links">
+            @php
+            $listAktif = request()->routeIs('list') ? '#dc3545' : '';
+            $groupAktif = request()->routeIs('grup') ? 'text-danger' : '';
+             @endphp
+            @if ($userRole == 1 || $userRole == 2 || $userRole == 3)
+            <li>
+                <div class="icon-links mt-2">
+                <a href="javascript:void(0)" style="width: 70px; "><i class="bx bx-user fs-5" style="color:{{ $listAktif }}"></i>
+                        <span class="link_name">Karyawan</span>
+                </a>
+                <a href="javascript:void(0)" style="width: 70px;">
+                <i class="bx bxs-chevron-down arrow"></i>
+                </a>
+            </div>
+            <ul class="sub_menu">
+                <li><a class="{{ request()->routeIs('list') ? 'text-danger' : '' }}"
+                    href="{{ route('list') }}">List Karyawan</a></li>
+            </ul>
+            </li>
+            @endif
             <li>
                 @php
                     $meetingAktif = request()->routeIs('room') ? '#dc3545' : (request()->routeIs('meeting') ? '#dc3545' : '#41443D');
@@ -233,6 +253,7 @@
                         </a>
                     </div>
                 @endif
+
 
                 <ul class="sub_menu">
 
