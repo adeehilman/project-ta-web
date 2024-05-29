@@ -1340,10 +1340,6 @@ class MeetingController extends Controller
     // send notifikasi dengan mms
     private function sendNotification($badge_id, $pesan, $subpesan, $category, $tag, $dynamicId)
     {
-        // dd($badge_id->all());
-        // URL API tujuan Prod
-        // $apiUrl = 'http://webapi.satnusa.com/api/meeting/send-notif';
-        // dev
         $apiUrl = config('urls.base_url') . '/api/notifikasi/send';
 
         // Membuat instance Client Guzzle
@@ -1361,23 +1357,20 @@ class MeetingController extends Controller
             ],
         ]);
         // Insert ke tbl_notification
-        // if ($badge_id !== '200040' && $badge_id !== '200195' && $badge_id !== '036834' && $badge_id !== '039264' && $badge_id !== '033861') {
-        //     DB::table('tbl_notification')->insert([
-        //         'title' => $pesan,
-        //         'description' => $subpesan,
-        //         'category' => 'Meeting',
-        //         'createdate' => now(),
-        //         'badge_id' => $badge_id,
-        //         'isread' => 0,
-        //     ]);
-        // }
+        DB::table('tbl_notification')->insert([
+                'title' => $pesan,
+                'description' => $subpesan,
+                'category' => 'Meeting',
+                'createdate' => now(),
+                'badge_id' => $badge_id,
+                'isread' => 0,
+            ]);
     }
 
     private function onlyNotif($badge_id, $pesan, $subpesan){
         // URL API tujuan Prod
         $apiUrl = config('urls.base_url') . '/api/meeting/send-notif';
         // dev
-        // $apiUrl = 'http://192.168.88.60:7005/api/notifikasi/send';
 
         // Membuat instance Client Guzzle
         $client = new Client();

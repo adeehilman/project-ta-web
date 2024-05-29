@@ -34,3 +34,16 @@ function showMessage(type, message) {
     })
 
 }
+
+function spinner(spinnerId, buttonId) {
+    if(!spinnerId || spinnerId === '' || !buttonId || buttonId === ''){
+        return;
+    }
+    $('#' + spinnerId).removeClass('d-none').prop('disabled', true);
+    $('#' + buttonId).hide();
+}
+
+function hideSpinner(spinnerId, buttonId) {
+    $('#' + spinnerId).addClass('d-none').prop('disabled', false);
+    $('#' + buttonId).show();
+}

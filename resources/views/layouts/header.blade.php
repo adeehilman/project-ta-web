@@ -150,7 +150,7 @@
             </li>
         </ul>
         <div class="navbars__title">
-            MySatnusa Admin
+            Meeting Room
         </div>
 
         {{-- navbar --}}

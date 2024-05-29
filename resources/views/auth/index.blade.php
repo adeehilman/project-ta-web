@@ -38,6 +38,11 @@
 
 
                             <div class="mb-3 d-grid">
+                                <button class="btn btn-primary d-none" type="button" id="SpinnerBtnAdd">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                    Loading...
+                                </button>
                                 <button type="submit" id="btnSubmit" class="btn btn-primary">Login</button>
                             </div>
 
@@ -65,16 +70,22 @@
                 data: $(this).serialize(),
                 dataType: 'json',
                 beforeSend: () => {
-                    btnSubmit.prepend(loaderIcon)
+                    spinner('SpinnerBtnAdd', 'btnSubmit');
                 },
                 success: res => {
+
+
+
                     if (res.status === 400) {
-                        showError('employee_no', res.messages.employee_no)
-                        showError('password', res.messages.password)
+                        loaderIcon.remove();
+                        showError('error', res.messages.employee_no)
+                        showError('error', res.messages.password)
                     }
 
                     if (res.status === 401) {
+
                         showMessage('error', res.messages);
+                        hideSpinner('SpinnerBtnAdd', 'btnSubmit');
                     }
 
                     if (res.status === 200) {
@@ -90,7 +101,7 @@
                     }
                     btnSubmit.children().remove();
                 }
-            }
+                }
             })
         })
     </script>
