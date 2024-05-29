@@ -146,9 +146,6 @@
         {{-- Main --}}
         <div class="wrapper_content">
             <div class="row me-1">
-                <a href="{{ route('meeting') }}" style="text-decoration: none">
-                    <span class="text-black"><i class="bx bx-chevron-left"></i> Back</span>
-                </a>
                 <div class="col-sm-6">
                     <p class="h3 mt-6">
                         User Authorization
