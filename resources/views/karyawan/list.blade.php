@@ -52,7 +52,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p>Regis MySatnusa</p>
+
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="rdStatusRegis"
                                                 id="rdALLRegis" value="all" checked>
