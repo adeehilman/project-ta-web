@@ -65,7 +65,7 @@
         $('#txSearch').val('');
         $('#monthFilter').val('');
         $('#selectDept').val('');
-        $('#tahunDropdown').val('2023');
+        $('#tahunDropdown').val('2024');
 
         getListSummaryMeeting();
     });
